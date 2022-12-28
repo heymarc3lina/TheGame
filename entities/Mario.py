@@ -172,6 +172,9 @@ class Mario(EntityBase):
             self.input.checkForInput()
         self.restart = True
 
+    def loadNextLevel(self):
+        pass
+
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
 
