@@ -7,9 +7,12 @@ from entities.Mario import Mario
 
 
 windowSize = 640, 480
-# level = None
-
+marioGlobal = None
+mario = None
 def main():
+    global marioGlobal
+    global mario
+
     pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
     screen = pygame.display.set_mode(windowSize)
@@ -18,15 +21,19 @@ def main():
     sound = Sound()
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
-    mario = Mario(0, 0, level, screen, dashboard, sound)
+
+    if marioGlobal is None:
+        mario = Mario(0, 0, level, screen, dashboard, sound)
+        marioGlobal = mario
 
     if mario.isNextLevel:
         menu.currSelectedLevel += 1
         menu.inChoosingLevel = False
         menu.dashboard.state = "start"
         menu.dashboard.time = 0
-        menu.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
-        menu.dashboard.levelName = self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
+        menu.levelNames = menu.loadLevelNames()
+        menu.level.loadLevel(menu.levelNames[menu.currSelectedLevel - 1])
+        menu.dashboard.levelName = menu.levelNames[menu.currSelectedLevel - 1].split("Level")[1]
         menu.start = True
 
     while not menu.start:
