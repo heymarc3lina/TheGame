@@ -21,7 +21,13 @@ def main():
     mario = Mario(0, 0, level, screen, dashboard, sound)
 
     if mario.isNextLevel:
-        menu.inChoosingLevel = True
+        menu.currSelectedLevel += 1
+        menu.inChoosingLevel = False
+        menu.dashboard.state = "start"
+        menu.dashboard.time = 0
+        menu.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
+        menu.dashboard.levelName = self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
+        menu.start = True
 
     while not menu.start:
         menu.update()
