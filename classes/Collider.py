@@ -9,7 +9,7 @@ class Collider:
         if self.leftLevelBorderReached():
             return
         elif self.rightLevelBorderReached():
-            self.entity.gameOver()
+            self.entity.loadNextLevel()
         try:
             rows = [
                 self.level[self.entity.getPosIndex().y],

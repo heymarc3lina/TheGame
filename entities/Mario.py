@@ -56,6 +56,7 @@ class Mario(EntityBase):
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
         self.restart = False
+        self.isNextLevel = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
 
@@ -173,7 +174,8 @@ class Mario(EntityBase):
         self.restart = True
 
     def loadNextLevel(self):
-        pass
+        self.restart = True
+        self.isNextLevel = True
 
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y

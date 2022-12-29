@@ -18,6 +18,10 @@ def main():
     sound = Sound()
     level = Level(screen, sound, dashboard)
     menu = Menu(screen, dashboard, level, sound)
+    mario = Mario(0, 0, level, screen, dashboard, sound)
+
+    if mario.isNextLevel:
+        menu.inChoosingLevel = True
 
     while not menu.start:
         menu.update()
