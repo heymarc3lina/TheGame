@@ -231,6 +231,7 @@ class Menu:
                         self.dashboard.state = "start"
                         self.dashboard.time = 0
                         self.level.loadLevel(self.levelNames[self.currSelectedLevel-1])
+                        print(self.currSelectedLevel)
                         self.dashboard.levelName = self.levelNames[self.currSelectedLevel-1].split("Level")[1]
                         self.start = True
                         return

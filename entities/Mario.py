@@ -172,6 +172,8 @@ class Mario(EntityBase):
             pygame.display.update()
             self.input.checkForInput()
         self.restart = True
+        self.isNextLevel = False
+
 
     def loadNextLevel(self):
         self.restart = True
