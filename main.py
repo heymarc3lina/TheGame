@@ -42,16 +42,7 @@ def main():
         menuGlobal = menu
 
     if mario.isNextLevel:
-        menu.currSelectedLevel += 1
-        menu.inChoosingLevel = False
-        menu.dashboard.state = "start"
-        menu.dashboard.time = 0
-        menu.levelNames = menu.loadLevelNames()
-        menu.level.level = None
-        menu.level.entityList = []
-        menu.level.loadLevel(menu.levelNames[menu.currSelectedLevel - 1])
-        menu.dashboard.levelName = menu.levelNames[menu.currSelectedLevel - 1].split("Level")[1]
-        menu.start = True
+        menu.loadNextLevel()
         level = menu.level
         level.dashboard = menu.dashboard
 

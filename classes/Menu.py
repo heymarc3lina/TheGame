@@ -264,3 +264,15 @@ class Menu:
                         elif self.state == 2:
                             self.inSettings = False
         pygame.display.update()
+
+    def loadNextLevel(self):
+        self.currSelectedLevel += 1
+        self.inChoosingLevel = False
+        self.dashboard.state = "start"
+        self.dashboard.time = 0
+        self.levelNames = self.loadLevelNames()
+        self.level.level = None
+        self.level.entityList = []
+        self.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
+        self.dashboard.levelName = self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
+        self.start = True
