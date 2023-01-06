@@ -175,8 +175,8 @@ class Mario(EntityBase):
         self.isNextLevel = False
 
 
-    def loadNextLevel(self):
-        self.restart = True
+    def levelComplete(self):
+        # self.restart = True
         self.isNextLevel = True
 
     def getPos(self):
