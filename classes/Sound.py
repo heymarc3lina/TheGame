@@ -8,7 +8,7 @@ class Sound:
         self.sfx_channel = mixer.Channel(1)
         self.sfx_channel.set_volume(0.2)
 
-        self.allowSFX = True
+        self.allowSFX = False
 
         self.soundtrack = mixer.Sound("./sfx/main_theme.ogg")
         self.coin = mixer.Sound("./sfx/coin.ogg")
