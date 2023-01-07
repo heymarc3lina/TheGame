@@ -1,10 +1,10 @@
 import pygame
+
 from classes.Dashboard import Dashboard
 from classes.Level import Level
 from classes.Menu import Menu
 from classes.Sound import Sound
 from entities.Mario import Mario
-
 
 windowSize = 640, 480
 marioGlobal = None
@@ -15,6 +15,8 @@ levelGlobal = None
 level = None
 dashboardGlobal = None
 dashboard = None
+
+
 def main():
     global marioGlobal
     global mario
@@ -46,12 +48,11 @@ def main():
         level = menu.level
         level.dashboard = menu.dashboard
 
+    if menu.isGameWon():
+        mario.gameWon()
+
     if mario.backToMenu:
         menu.start = False
-
-        if menu.isGameWon():
-            mario.gameWon()
-
         menu.start = False
         marioGlobal = None
         return 'restart'
@@ -62,7 +63,7 @@ def main():
     mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
 
-    while not mario.backToMenu:
+    while not mario.backToMenu and not mario.isNextLevel:
         pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
         if mario.pause:
             mario.pauseObj.update()

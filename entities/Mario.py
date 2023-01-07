@@ -202,7 +202,6 @@ class Mario(EntityBase):
         self.isNextLevel = False
 
     def completeLevel(self):
-        self.backToMenu = True
         self.isNextLevel = True
 
     def getPos(self):
