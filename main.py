@@ -47,6 +47,7 @@ def main():
         level.dashboard = menu.dashboard
 
     if mario.backToMenu and menu.isGameWon():
+        mario.gameWon()
         menu.start = False
         marioGlobal = None
         return 'restart'
