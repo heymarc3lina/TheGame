@@ -46,7 +46,7 @@ def main():
         level = menu.level
         level.dashboard = menu.dashboard
 
-    if mario.restart or menu.isGameWon():
+    if mario.backToMenu and menu.isGameWon():
         menu.start = False
         marioGlobal = None
         return 'restart'
@@ -57,7 +57,7 @@ def main():
     mario = Mario(0, 0, level, screen, dashboard, sound)
     clock = pygame.time.Clock()
 
-    while not mario.restart:
+    while not mario.backToMenu:
         pygame.display.set_caption("Super Mario running with {:d} FPS".format(int(clock.get_fps())))
         if mario.pause:
             mario.pauseObj.update()

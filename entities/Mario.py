@@ -55,7 +55,7 @@ class Mario(EntityBase):
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
-        self.restart = False
+        self.backToMenu = False
         self.isNextLevel = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
@@ -171,12 +171,12 @@ class Mario(EntityBase):
         while self.sound.music_channel.get_busy():
             pygame.display.update()
             self.input.checkForInput()
-        self.restart = True
+        self.backToMenu = True
         self.isNextLevel = False
 
 
-    def levelComplete(self):
-        # self.restart = True
+    def completeLevel(self):
+        self.backToMenu = True
         self.isNextLevel = True
 
     def getPos(self):
