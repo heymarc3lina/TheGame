@@ -269,7 +269,6 @@ class Menu:
         self.currSelectedLevel += 1
         self.inChoosingLevel = False
         self.dashboard.state = "start"
-        self.dashboard.time = 0
         self.levelNames = self.loadLevelNames()
         if self.currSelectedLevel - 1 >= len(self.levelNames):
             self.wonTheGame = True
