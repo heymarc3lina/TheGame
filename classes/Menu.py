@@ -21,6 +21,7 @@ class Menu:
         self.inChoosingLevel = False
         self.dashboard = dashboard
         self.levelCount = 0
+        self.wonTheGame = False
         self.spritesheet = Spritesheet("./img/title_screen.png")
         self.menu_banner = self.spritesheet.image_at(
             0,
@@ -263,3 +264,20 @@ class Menu:
                         elif self.state == 2:
                             self.inSettings = False
         pygame.display.update()
+
+    def loadNextLevel(self):
+        self.currSelectedLevel += 1
+        self.inChoosingLevel = False
+        self.dashboard.state = "start"
+        self.levelNames = self.loadLevelNames()
+        if self.currSelectedLevel - 1 >= len(self.levelNames):
+            self.wonTheGame = True
+            return
+        self.level.level = None
+        self.level.entityList = []
+        self.level.loadLevel(self.levelNames[self.currSelectedLevel - 1])
+        self.dashboard.levelName = self.levelNames[self.currSelectedLevel - 1].split("Level")[1]
+        self.start = True
+
+    def isGameWon(self):
+        return self.wonTheGame

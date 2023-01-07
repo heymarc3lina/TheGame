@@ -55,7 +55,8 @@ class Mario(EntityBase):
         self.screen = screen
         self.EntityCollider = EntityCollider(self)
         self.dashboard = dashboard
-        self.restart = False
+        self.backToMenu = False
+        self.isNextLevel = False
         self.pause = False
         self.pauseObj = Pause(screen, self, dashboard)
 
@@ -170,7 +171,39 @@ class Mario(EntityBase):
         while self.sound.music_channel.get_busy():
             pygame.display.update()
             self.input.checkForInput()
-        self.restart = True
+        self.backToMenu = True
+        self.isNextLevel = False
+
+    def gameWon(self):
+        srf = pygame.Surface((640, 480))
+        srf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
+        srf.set_alpha(128)
+        self.sound.music_channel.stop()
+        self.sound.music_channel.play(self.sound.win)
+
+        for i in range(500, 20, -2):
+            srf.fill((0, 0, 0))
+            pygame.draw.circle(
+                srf,
+                (255, 255, 255),
+                (int(self.camera.x + self.rect.x) + 16, self.rect.y + 16),
+                i,
+            )
+            self.screen.blit(srf, (0, 0))
+            pygame.display.update()
+            self.input.checkForInput()
+
+        self.dashboard.drawText("YOU WIN!", 40, 120, 80)
+
+        while self.sound.music_channel.get_busy():
+            pygame.display.update()
+            self.input.checkForInput()
+        self.backToMenu = True
+        self.isNextLevel = False
+
+    def completeLevel(self):
+        self.backToMenu = True
+        self.isNextLevel = True
 
     def getPos(self):
         return self.camera.x + self.rect.x, self.rect.y
