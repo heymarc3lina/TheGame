@@ -75,6 +75,8 @@ class Mario(EntityBase):
         self.collision.checkY()
         self.rect.x += self.vel.x
         self.collision.checkX()
+        if self.collision.rightLevelBorderReached():
+            self.completeLevel()
 
     def checkEntityCollision(self):
         for ent in self.levelObj.entityList:

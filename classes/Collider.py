@@ -8,8 +8,6 @@ class Collider:
     def checkX(self):
         if self.leftLevelBorderReached():
             return
-        elif self.rightLevelBorderReached():
-            self.entity.completeLevel()
         try:
             rows = [
                 self.level[self.entity.getPosIndex().y],
