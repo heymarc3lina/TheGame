@@ -7,24 +7,18 @@ from classes.Sound import Sound
 from entities.Mario import Mario
 
 windowSize = 640, 480
+menu = None
+level = None
+dashboard = None
 marioGlobal = None
 mario = None
-menuGlobal = None
-menu = None
-levelGlobal = None
-level = None
-dashboardGlobal = None
-dashboard = None
 
 
 def main():
     global marioGlobal
     global mario
     global menu
-    global menuGlobal
-    global levelGlobal
     global level
-    global dashboardGlobal
     global dashboard
 
     pygame.mixer.pre_init(44100, -16, 2, 4096)
@@ -35,24 +29,25 @@ def main():
 
     if marioGlobal is None:
         dashboard = Dashboard("./img/font.png", 8, screen)
-        dashboardGlobal = dashboard
         level = Level(screen, sound, dashboard)
-        levelGlobal = level
-        mario = Mario(0, 0, level, screen, dashboard, sound)
-        marioGlobal = mario
         menu = Menu(screen, dashboard, level, sound)
-        menuGlobal = menu
+        mario = Mario(0, 0, level, screen, dashboard, sound)
 
     if mario.isNextLevel:
         menu.loadNextLevel()
+
+        if menu.isGameWon():
+            mario.gameWon()
+            return 'restart'
+
         level = menu.level
         level.dashboard = menu.dashboard
-
-    if menu.isGameWon():
-        mario.gameWon()
+        mario = Mario(0, 0, level, screen, dashboard, sound)
+        if marioGlobal.powerUpState:
+            mario.powerup(1)
+        marioGlobal = mario
 
     if mario.backToMenu:
-        menu.start = False
         menu.start = False
         marioGlobal = None
         return 'restart'
@@ -60,7 +55,10 @@ def main():
     while not menu.start:
         menu.update()
 
-    mario = Mario(0, 0, level, screen, dashboard, sound)
+    if marioGlobal is None:
+        mario = Mario(0, 0, level, screen, dashboard, sound)
+        marioGlobal = mario
+
     clock = pygame.time.Clock()
 
     while not mario.backToMenu and not mario.isNextLevel:
